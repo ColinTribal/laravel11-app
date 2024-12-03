@@ -24,14 +24,16 @@
                         <td class="py-2 px-4 border-b border-gray-200">{{ $product->name }}</td>
                         <td class="py-2 px-4 border-b border-gray-200">{{ $product->description }}</td>
                         <td class="py-2 px-4 border-b border-gray-200">{{ $product->price }}</td>
-                        <td class="py-2 px-4 border-b border-gray-200">
-                            <a href="{{ route('products.show', $product->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">Show</a>
-                            <a href="{{ route('products.edit', $product->id) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded">Edit</a>
-                            <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">Delete</button>
-                            </form>
+                        <td class="py-2 px-4 border-b border-gray-200 ">
+                            <div class="flex">
+                                <a href="{{ route('products.show', $product->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-2">Show</a>
+                                <a href="{{ route('products.edit', $product->id) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded mr-2">Edit</a>
+                                <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">Delete</button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
