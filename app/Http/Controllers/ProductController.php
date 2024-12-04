@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
-
+use Inertia\Inertia;
 class ProductController extends Controller
 {
     /**
@@ -13,7 +13,7 @@ class ProductController extends Controller
     {
         //
         $products = Product::all();
-        return view('products.index', compact('products'));
+        return Inertia::render('Products/Index', compact('products'));
     }
 
     /**
@@ -23,7 +23,7 @@ class ProductController extends Controller
     {
         //
         $product = new Product();
-        return view('products.create', compact('product'));
+        return Inertia::render('Products/Create', compact('product'));
     }
 
     /**
@@ -50,7 +50,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         //
-        return view('products.show', compact('product'));
+        return Inertia::render('Products/Show', compact('product'));
     }
 
     /**
@@ -59,7 +59,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         //
-        return view('products.edit', compact('product'));
+        return Inertia::render('Products/Edit', compact('product'));
     }
 
     /**

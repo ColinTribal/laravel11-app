@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
@@ -20,6 +21,7 @@
         "@inertiajs/react": "^1.2.0",
         "@types/react": "^18.3.12",
         "@types/react-dom": "^18.3.1",
+        "@vitejs/plugin-react": "^4.3.4",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
         "typescript": "^5.7.2"
