@@ -2,10 +2,10 @@
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('welcome');
-});
+use Inertia\Inertia;
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -25,5 +25,10 @@ Route::get('/products/create', [ProductController::class, 'create'])->name('prod
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
 
+
+
+Route::get('/', function () {
+    return Inertia::render('Example');
+});
 
 require __DIR__.'/auth.php';
