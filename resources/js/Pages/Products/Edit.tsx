@@ -1,21 +1,29 @@
 import React from 'react';
-import { useForm,usePage } from '@inertiajs/react';
-
+import { router, useForm,usePage } from '@inertiajs/react';
+import { ProductType } from '../../Types/ProductType';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 const Edit = ({ product }) => {
 
     const { props } = usePage();
     //const { errors } = props;
 
-
-    const { data, setData, put, errors } = useForm({
+    const [errors, setErrors] = useState([]);
+    const { data, setData, put } = useForm({
         name: product.name,
         description: product.description,
         price: product.price,
     });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e : React.FormEvent) => {
         e.preventDefault();
-        put(`/products/${product.id}`, {preserveState: true});
+        axios.defaults.withCredentials = true;
+        axios.put(`/products/${product.id}`, data).then(response => {
+            router.visit(`/products`);
+        }).catch(error => {
+            setErrors(error.response.data.errors);
+           
+        });
     };
 
     return (

@@ -1,25 +1,44 @@
 import React from 'react';
 import { Link, usePage,router } from '@inertiajs/react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+const Index = () => {
 
-const Index = ({ products }) => {
+    const [products, setProducts] = useState([]);
+    const [success, setSuccess] = useState('');
 
-    const { props } = usePage();
-    const { flash } = props;
+    const {props} = usePage();
+    useEffect(() => {
+        axios.defaults.withCredentials = true;
+        axios.get('/products/get').then(response => {
 
-    console.log("props",props);
+            setProducts(response.data);
+        });
+    }, []);
+
+    
+    
     const handleDelete = (id) => {
         if (confirm('Are you sure you want to delete this product?')) {
-            router.delete(`/products/${id}`);
+            axios.defaults.withCredentials = true;
+            axios.delete(`/products/${id}`).then(response => {
+                setSuccess(response.data.success);
+                axios.get('/products/get').then(response => {
+                    setProducts(response.data);
+                });
+            }).catch(error => {
+                console.error(error);
+            });
         }
     };
 
     return (
         <div>
             <h1>Products</h1>
-            {flash.success && <div className="alert alert-success">{flash.success}</div>}
+            {success && <div className="alert alert-success">{success}</div>}
             <Link href="/products/create">Create Product</Link>
             <ul>
-                {products.map(product => (
+                {products?.map(product => (
                     <li key={product.id}>
                         {product.name} - {product.price}
                         <Link href={`/products/${product.id}/edit`}>Edit</Link>

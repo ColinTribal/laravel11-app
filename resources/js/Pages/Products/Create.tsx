@@ -1,16 +1,24 @@
-import React, { useEffect } from 'react';
-import { useForm, usePage } from '@inertiajs/react';
+import { router, useForm, usePage } from '@inertiajs/react';
+import React,{ useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Create = () => {
-    const { data, setData, post, errors } = useForm({
+    const [errors, setErrors] = useState([]);
+    const { data, setData } = useForm({
         name: '',
         description: '',
         price: '',
     });  
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e : React.FormEvent) => {
         e.preventDefault();
-        post('/products');
+        axios.defaults.withCredentials = true;
+        axios.post('/products', data).then(response => {
+            router.visit(`/products`);
+        }).catch(error => {
+            setErrors(error.response.data.errors);
+        }
+        );
         
     };
 

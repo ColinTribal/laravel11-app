@@ -12,8 +12,14 @@ class ProductController extends Controller
     public function index()
     {
         //
+       
+        return Inertia::render('Products/Index');
+    }
+
+    public function get()
+    {
         $products = Product::all();
-        return Inertia::render('Products/Index', compact('products'));
+        return response()->json($products);
     }
 
     /**
@@ -39,9 +45,7 @@ class ProductController extends Controller
         ]);
 
         Product::create($request->all());
-
-        return redirect()->route('products.index')
-                         ->with('success', 'Product created successfully.');
+        return response()->json(['success' => 'product created']);
     }
 
     /**
@@ -75,10 +79,7 @@ class ProductController extends Controller
         ]);
 
         $product->update($request->all());
-
-        return redirect()->route('products.index')
-                         ->with('success', 'Product updated successfully.');
-
+        return response()->json(['success' => 'product updated']);
     }
 
     /**
@@ -89,8 +90,7 @@ class ProductController extends Controller
         //
         $product->delete();
 
-        return redirect()->route('products.index')
-                         ->with('success', 'Product deleted successfully.');
+        return response()->json(['success' => 'product deleted']);
 
     }
 }
