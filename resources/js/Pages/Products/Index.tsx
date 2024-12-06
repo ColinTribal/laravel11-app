@@ -1,13 +1,25 @@
 import React from 'react';
 import { Link, usePage,router } from '@inertiajs/react';
+import { Product } from "../../Types/ProductType";
 
-const Index = ({ products }) => {
+interface IndexProps {
+    products: Product[];
+}
 
-    const { props } = usePage();
+interface PageProps {
+    flash: {
+        success? :string;
+    };
+    [key: string]: any;
+}
+
+const Index: React.FC<IndexProps> = ({ products }) => {
+    const { props } = usePage<PageProps>();
     const { flash } = props;
 
-    console.log("props",props);
-    const handleDelete = (id) => {
+    console.log("props", props);
+
+    const handleDelete = (id?: number) => {
         if (confirm('Are you sure you want to delete this product?')) {
             router.delete(`/products/${id}`);
         }

@@ -1,11 +1,14 @@
 import React from 'react';
-import { useForm,usePage } from '@inertiajs/react';
+import { useForm, usePage } from '@inertiajs/react';
+import { Product } from "../../Types/ProductType";
 
-const Edit = ({ product }) => {
+interface EditProps {
+    product: Product;
+}
 
+const Edit: React.FC<EditProps> = ({ product }) => {
     const { props } = usePage();
-    //const { errors } = props;
-
+    // const { errors } = props;
 
     const { data, setData, put, errors } = useForm({
         name: product.name,
@@ -13,9 +16,9 @@ const Edit = ({ product }) => {
         price: product.price,
     });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        put(`/products/${product.id}`, {preserveState: true});
+        put(`/products/${product.id}`, { preserveState: true });
     };
 
     return (
@@ -24,17 +27,28 @@ const Edit = ({ product }) => {
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Name</label>
-                    <input type="text" value={data.name} onChange={e => setData('name', e.target.value)} />
+                    <input 
+                        type="text" 
+                        value={data.name} 
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData('name', e.target.value)} 
+                    />
                     {errors.name && <div>{errors.name}</div>}
                 </div>
                 <div>
                     <label>Description</label>
-                    <textarea value={data.description} onChange={e => setData('description', e.target.value)} />
+                    <textarea 
+                        value={data.description} 
+                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setData('description', e.target.value)} 
+                    />
                     {errors.description && <div>{errors.description}</div>}
                 </div>
                 <div>
                     <label>Price</label>
-                    <input type="text" value={data.price} onChange={e => setData('price', e.target.value)} />
+                    <input 
+                        type="text" 
+                        value={data.price} 
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData('price', e.target.value)} 
+                    />
                     {errors.price && <div>{errors.price}</div>}
                 </div>
                 <button type="submit">Update</button>
