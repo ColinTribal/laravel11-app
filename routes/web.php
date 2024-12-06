@@ -28,6 +28,7 @@ Route::middleware(['log.requests'])->group(function() {
     Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
     Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
     
+    Route::get('/notify',[\App\Http\Controllers\NotificationController::class,'sendNotification'] )->name('notify');
     
     
     Route::get('/', function () {

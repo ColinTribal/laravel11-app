@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use App\Traits\HasDiscount;
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory,HasDiscount;
     //
-    protected $fillable = ['name', 'description', 'price'];
+    protected $fillable = ['name', 'description', 'price','sale_price'];
 
     public function setNameAttribute($value)
     {

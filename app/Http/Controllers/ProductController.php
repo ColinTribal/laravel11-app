@@ -54,7 +54,9 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         //
-        return Inertia::render('Products/Show', compact('product'));
+        $discountedPrice = $product->calculateDiscountedPrice(10); // 10% discount
+        $isOnSale = $product->isOnSale();
+        return Inertia::render('Products/Show', compact('product','discountesPrice','isOnSale'));
     }
 
     /**
