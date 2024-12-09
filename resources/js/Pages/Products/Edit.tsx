@@ -1,11 +1,11 @@
 import React from 'react';
 import { router, useForm, usePage } from '@inertiajs/react';
-import { ProductType } from '../../Types/ProductType';
+import { Product } from '../../Types/ProductType';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 interface EditProps {
-    product: ProductType;
+    product: Product;
 }
 
 interface FormData {
